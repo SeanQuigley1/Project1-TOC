@@ -56,12 +56,12 @@ class SatSolver(SatSolverAbstractClass):
     """
 
 
-    def verifier(self, n_vars:int, clauses:List[List[int]], assignments) -> int:
-        # if all clauses true - success (True)
-        # else if some clauses true, others undeterminable, none false - perhaps (None)
-        # else if any clause is false - failure (False)
+    def verifier(self, clauses:List[List[int]], assignments) -> int:
+        # if all clauses true - success (True) - 1
+        # else if some clauses true, others undeterminable, none false - perhaps (None) - -1
+        # else if any clause is false - failure (False) - 0
         
-        status = True
+        status = 1
         for clause in clauses:
             any_unknowns = False
             truthiness = False
@@ -77,34 +77,73 @@ class SatSolver(SatSolverAbstractClass):
                 # negate variable value if needed
                 if var < 0: var_val = not var_val
 
+                # one true var = true clause, break
                 if var_val: 
                     truthiness = True
                     break
 
             # if false clause entirely - we can return that these assignments don't work
             if not any_unknowns and not truthiness: 
-                status = False
+                status = 0
                 break
 
             # indeterminable - will continue searching clauses to ensure none are False
-            if not truthiness and any_unknowns: status = None
+            if not truthiness and any_unknowns: status = -1
 
         return status
         
 
-
     def sat_backtracking(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         # mapping of boolean/assignments set to None (all untried at beginning)
         assignments = { k: None for k in range(1, n_vars + 1) }
-        # initial empty stack - will be used to track tried components
+
+        # will be used to quickly identify new var to try
+        not_assigned = { k for k in range(1, n_vars + 1) }
+
+        # initial empty stack - will be used to track tried components / backtracking functionality
         stack = []
 
+        # initialize first var to get algorithm underway
+        initial_var = not_assigned.pop()
+        stack.append(initial_var)
+        # start with True, shallow backtrack will flip from True -> False -> deep backtrack
+        assignments[initial_var] = True
+
+
         # setting up first variable to test out
-        current_var = 1
-        stack.append(current_var)
-        assignments[current_var] = True
-        print(self.verifier(n_vars, clauses, assignments))        
-        return (False, {})
+        # can make while loop condition True = because either works or not works will be determined - no risk of infinite loop
+        while True:
+            result = self.verifier(clauses, assignments)
+            # works
+            if result == 1:
+                # set unseen vars to anything
+                while not_assigned:
+                    temp_var = not_assigned.pop()
+                    assignments[temp_var] = True
+                return (True, assignments)
+            # assignment failed
+            elif result == 0:
+                # backtracking
+                while stack:
+                    top = stack[-1]
+
+                    # was true -> now false
+                    if assignments[top] == True: 
+                        assignments[top] = False  
+                        break
+
+                    # was false, exhausted var - backtrack
+                    else: 
+                        assignments[top] = None
+                        not_assigned.add(top)
+                        stack.pop()
+                # Unsatisfiable
+                if not stack: return (False, {}) 
+            # add additional assignment - inconclusive
+            else:
+                new_var = not_assigned.pop()
+                assignments[new_var] = True
+                stack.append(new_var)
 
     def sat_bruteforce(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         pass
