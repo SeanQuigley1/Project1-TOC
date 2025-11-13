@@ -56,12 +56,49 @@ class SatSolver(SatSolverAbstractClass):
     """
 
 
+    def verifier(self, n_vars:int, clauses:List[List[int]], assignments) -> int:
+        for clause in clauses:
+            
+            any_unknowns = False
+            truthiness = False
+            # need to see if any var (negated or not) will make the clause true, if 
+            for var in clause:
+                # inverted with (-) sign
+                var_val = assignments[abs(var)]
+                if var_val is None: 
+                    any_unknowns = True
+                    continue
+
+                # negate variable value if needed
+                if var < 0: var_val = not var_val
+
+                if var_val: 
+                    truthiness = True
+                    break
+
+            # if false clause entirely - we can return that these assignments don't work
+            if not any_unknowns and not truthiness: 
+
+
+        return 1
+        
+
+
     def sat_backtracking(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        pass
+        # mapping of boolean/assignments set to None (all untried at beginning)
+        assignments = { k: None for k in range(1, n_vars + 1) }
+        # initial empty stack - will be used to track tried components
+        stack = []
+
+        # setting up first variable to test out
+        current_var = 1
+        stack.append(current_var)
+        assignments[current_var] = True
+        print(self.verifier(n_vars, clauses, assignments))        
+        return (False, {})
 
     def sat_bruteforce(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        print(n_vars, clauses)
-        return None
+        pass
 
     def sat_bestcase(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         pass

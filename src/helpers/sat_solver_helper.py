@@ -32,15 +32,16 @@ class SatSolverAbstractClass(ABC):
         selection = data["Selection"]
         sub_problem = data["Sub Problem"]
         sub_probs = []
-        for sub_prob in sub_problem:
-            if sub_prob["value"] == SubProblemSelection.brute_force.value:
-                sub_probs.append(SubProblemSelection.brute_force)
-            elif sub_prob["value"] == SubProblemSelection.btracking.value:
-                sub_probs.append(SubProblemSelection.btracking)
-            elif sub_prob["value"] == SubProblemSelection.simple.value:
-                sub_probs.append(SubProblemSelection.simple)
-            elif sub_prob["value"] == SubProblemSelection.best_case.value:
-                sub_probs.append(SubProblemSelection.best_case)
+        sub_probs.append(SubProblemSelection.btracking)
+        # for sub_prob in sub_problem:
+        #     if sub_prob["value"] == SubProblemSelection.brute_force.value:
+        #         sub_probs.append(SubProblemSelection.brute_force)
+        #     elif sub_prob["value"] == SubProblemSelection.btracking.value:
+        #         sub_probs.append(SubProblemSelection.btracking)
+        #     elif sub_prob["value"] == SubProblemSelection.simple.value:
+        #         sub_probs.append(SubProblemSelection.simple)
+        #     elif sub_prob["value"] == SubProblemSelection.best_case.value:
+        #         sub_probs.append(SubProblemSelection.best_case)
         return sub_probs
         
     def parse_input_file(self):
