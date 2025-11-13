@@ -43,6 +43,7 @@ instance_id,n_vars,n_clauses,method,satisfiable,time_seconds,solution
 from typing import List, Tuple, Dict
 from src.helpers.sat_solver_helper import SatSolverAbstractClass
 import itertools
+from itertools import product
 
 
 class SatSolver(SatSolverAbstractClass):
@@ -157,7 +158,36 @@ class SatSolver(SatSolverAbstractClass):
     
 
     def sat_bestcase(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        pass
+        best_assignment = {}
+        best_score = -1
+        total_clauses = len(clauses)
+
+        # Try every possible combination of True/False assignments
+        for test in product([True, False], repeat=n_vars):
+            assignments = {k + 1: test[k] for k in range(n_vars)}
+
+            # Count how many clauses this assignment satisfies
+            satisfied = 0
+            for clause in clauses:
+                for var in clause:
+                    val = assignments[abs(var)]
+                    if var < 0:
+                        val = not val
+                    if val:
+                        satisfied += 1
+                        break  # once clause is satisfied, move to next one
+
+            # Found a perfect assignment — stop early
+            if satisfied == total_clauses:
+                return (True, assignments)
+
+            # Track best so far
+            if satisfied > best_score:
+                best_score = satisfied
+                best_assignment = assignments.copy()
+
+        # No perfect solution found — return best-so-far
+        return (False, best_assignment)
 
     def sat_simple(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         pass
