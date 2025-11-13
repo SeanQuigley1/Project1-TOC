@@ -57,10 +57,15 @@ class SatSolver(SatSolverAbstractClass):
 
 
     def verifier(self, n_vars:int, clauses:List[List[int]], assignments) -> int:
+        # if all clauses true - success (True)
+        # else if some clauses true, others undeterminable, none false - perhaps (None)
+        # else if any clause is false - failure (False)
+        
+        status = True
         for clause in clauses:
-            
             any_unknowns = False
             truthiness = False
+
             # need to see if any var (negated or not) will make the clause true, if 
             for var in clause:
                 # inverted with (-) sign
@@ -78,9 +83,13 @@ class SatSolver(SatSolverAbstractClass):
 
             # if false clause entirely - we can return that these assignments don't work
             if not any_unknowns and not truthiness: 
+                status = False
+                break
 
+            # indeterminable - will continue searching clauses to ensure none are False
+            if not truthiness and any_unknowns: status = None
 
-        return 1
+        return status
         
 
 
