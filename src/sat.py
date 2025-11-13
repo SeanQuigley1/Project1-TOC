@@ -158,7 +158,7 @@ class SatSolver(SatSolverAbstractClass):
     
 
     def sat_bestcase(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        best_assignment = {} #putting in best case stuff
+        best_assignment = {} # putting in best case stuff
         best_score = -1
         total_clauses = len(clauses)
 
