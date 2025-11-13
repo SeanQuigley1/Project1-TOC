@@ -146,7 +146,15 @@ class SatSolver(SatSolverAbstractClass):
                 stack.append(new_var)
 
     def sat_bruteforce(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        pass
+        for test in product([True, False], repeat=n_vars): #make all combos
+            
+            assignments = { k+1: test[k] for k in range(n_vars) }
+            
+            if self.verifier(clauses, assignments) == 1:
+                return (True, assignments) #found a match
+        # couldnt find a match
+        return (False, {})
+    
 
     def sat_bestcase(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         pass
