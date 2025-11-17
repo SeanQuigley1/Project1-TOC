@@ -97,7 +97,7 @@ class SatSolver(SatSolverAbstractClass):
     def sat_backtracking(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         # mapping of boolean/assignments set to None (all untried at beginning)
         assignments = { k: None for k in range(1, n_vars + 1) }
-        print(clauses)
+        # print(clauses)
         # will be used to quickly identify new var to try
         not_assigned = { k for k in range(1, n_vars + 1) }
 

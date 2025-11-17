@@ -32,16 +32,15 @@ class SatSolverAbstractClass(ABC):
         selection = data["Selection"]
         sub_problem = data["Sub Problem"]
         sub_probs = []
-        sub_probs.append(SubProblemSelection.btracking)
-        # for sub_prob in sub_problem:
-        #     if sub_prob["value"] == SubProblemSelection.brute_force.value:
-        #         sub_probs.append(SubProblemSelection.brute_force)
-        #     elif sub_prob["value"] == SubProblemSelection.btracking.value:
-        #         sub_probs.append(SubProblemSelection.btracking)
-        #     elif sub_prob["value"] == SubProblemSelection.simple.value:
-        #         sub_probs.append(SubProblemSelection.simple)
-        #     elif sub_prob["value"] == SubProblemSelection.best_case.value:
-        #         sub_probs.append(SubProblemSelection.best_case)
+        for sub_prob in sub_problem:
+            if sub_prob["value"] == SubProblemSelection.brute_force.value:
+                sub_probs.append(SubProblemSelection.brute_force)
+            elif sub_prob["value"] == SubProblemSelection.btracking.value:
+                sub_probs.append(SubProblemSelection.btracking)
+            elif sub_prob["value"] == SubProblemSelection.simple.value:
+                sub_probs.append(SubProblemSelection.simple)
+            elif sub_prob["value"] == SubProblemSelection.best_case.value:
+                sub_probs.append(SubProblemSelection.best_case)
         return sub_probs
         
     def parse_input_file(self):
@@ -77,6 +76,7 @@ class SatSolverAbstractClass(ABC):
 
     def run(self):
         results = []
+        results_collection = []
         
         for inst_id, n_vars, clauses in self.solution_instances:
 
@@ -92,6 +92,7 @@ class SatSolverAbstractClass(ABC):
         
         if SubProblemSelection.brute_force in self.sub_problems:
             self.save_results(results, SubProblemSelection.brute_force.name)
+            results_collection.append(results)
             results = []
 
         for inst_id, n_vars, clauses in self.solution_instances:
@@ -108,6 +109,7 @@ class SatSolverAbstractClass(ABC):
         
         if SubProblemSelection.btracking in self.sub_problems:
             self.save_results(results, SubProblemSelection.btracking.name)
+            results_collection.append(results)
             results = []
 
         for inst_id, n_vars, clauses in self.solution_instances:
@@ -141,7 +143,10 @@ class SatSolverAbstractClass(ABC):
         
         if SubProblemSelection.best_case in self.sub_problems:
             self.save_results(results, SubProblemSelection.best_case.name)
+            results_collection.append(results)
             results = []
+            
+        return results_collection
 
 
 

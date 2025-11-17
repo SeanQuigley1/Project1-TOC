@@ -6,6 +6,7 @@ from src.bin_packing import BinPacking
 from src.graph_coloring import GraphColoring
 from src.hamilton_cycle import HamiltonCycleColoring
 from src.helpers.automation_helpers import brief_about_project
+from src.sat_graph import grapher
 
 def main():
     """
@@ -27,7 +28,9 @@ def main():
         solver = GraphColoring(INPUT_FILE)
     
     if solver:
-        solver.run()
+        results_collection = solver.run()
+        grapher(results_collection)
+
 
 
     
