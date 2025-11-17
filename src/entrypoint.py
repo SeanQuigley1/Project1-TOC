@@ -1,12 +1,12 @@
 import os
 from src.helpers.project_selection_enum import ProjectSelection
 from src.helpers.constants import CONFIGURATION_FILE_PATH, parse_config, INPUT_FILE
-from src.sat import SatSolver
+from src.sat_surgical import SatSolver
 from src.bin_packing import BinPacking
 from src.graph_coloring import GraphColoring
 from src.hamilton_cycle import HamiltonCycleColoring
 from src.helpers.automation_helpers import brief_about_project
-from src.sat_graph import grapher
+from src.sat_graph_surgical import grapher
 
 def main():
     """

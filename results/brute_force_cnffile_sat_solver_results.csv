@@ -1,4 +1,4 @@
 instance_id,n_vars,n_clauses,method,satisfiable,time_seconds,solution
-3,4,10,BruteForce,U,2.2666004952043295e-05,{}
-4,4,10,BruteForce,S,3.915978595614433e-06,"{1: True, 2: True, 3: True, 4: False}"
-5,4,10,BruteForce,S,1.0457995813339949e-05,"{1: False, 2: False, 3: True, 4: True}"
+3,4,10,BruteForce,U,2.3791042622178793e-05,{}
+4,4,10,BruteForce,S,3.7080026231706142e-06,"{1: True, 2: True, 3: True, 4: False}"
+5,4,10,BruteForce,S,1.0707997716963291e-05,"{1: False, 2: False, 3: True, 4: True}"

@@ -1,4 +1,4 @@
 instance_id,n_vars,n_clauses,method,satisfiable,time_seconds,solution
-3,4,10,BestCase,U,3.187498077750206e-05,"{1: True, 2: False, 3: True, 4: False}"
-4,4,10,BestCase,S,4.249974153935909e-06,"{1: True, 2: True, 3: True, 4: False}"
-5,4,10,BestCase,S,2.1459010895341635e-05,"{1: False, 2: False, 3: True, 4: True}"
+3,4,10,BestCase,U,3.391696373000741e-05,"{1: True, 2: False, 3: True, 4: False}"
+4,4,10,BestCase,S,4.292000085115433e-06,"{1: True, 2: True, 3: True, 4: False}"
+5,4,10,BestCase,S,2.1332991309463978e-05,"{1: False, 2: False, 3: True, 4: True}"

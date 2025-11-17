@@ -8,7 +8,7 @@ def grapher(results_collection):
     # brute -> btack -> best
     input = os.path.basename(INPUT_FILE).split(".")[0]
     titles = ["SAT - Brute Force", "SAT - Backtrack", "SAT - Best Case"]
-    fileNames = [f"{input}_sat_brute_force_graph.jpg", f"{input}_sat_backtrack_graph.jpg", f"{input}_sat_best_case_graph.jpg"]
+    fileNames = [f"plots_{input}_sat_brute_force_graph_surgical.jpg", f"plots_{input}_sat_backtrack_graph_surgical.jpg", f"plots_{input}_sat_best_case_graph_surgical.jpg"]
     for index, results in enumerate(results_collection):
         time, num_literals, satisfiable = helper(results)
         plt.figure
