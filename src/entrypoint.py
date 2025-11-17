@@ -29,7 +29,8 @@ def main():
     
     if solver:
         results_collection = solver.run()
-        grapher(results_collection)
+        if selection["name"] == ProjectSelection.sat.name:
+            grapher(results_collection)
 
 
 
