@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import os
 from src.helpers.constants import RESULTS_FOLDER, INPUT_FILE
